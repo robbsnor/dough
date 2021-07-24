@@ -1,13 +1,13 @@
 class Accordion {
-    constructor() {
+    constructor({
+        animationSpeed = 200 // should be the same as css
+    }) {
+        this.animationSpeed = animationSpeed;
+
         this.accordions = document.getElementsByClassName('accordion');
         this.headers = document.getElementsByClassName('accordion__header');
         this.bodys = document.getElementsByClassName('accordion__body');
         this.bodysContent = document.getElementsByClassName('accordion__body-content');
-
-        this.options = {
-            animationSpeed: 200
-        }
         
         this.init();
     }
@@ -31,8 +31,7 @@ class Accordion {
 
         setTimeout(() => {
             this.bodys[i].style.height = `auto`;
-        }, this.options.animationSpeed);
-
+        }, this.animationSpeed);
     }
 
     close(i) {
@@ -68,7 +67,11 @@ class Accordion {
     }
 }
 
-const acc = new Accordion();
+const acc = new Accordion({
+    animationSpeed: 1000
+});
+
+console.log(acc);
 
 document.getElementById('close-all').addEventListener('click', () => {
     acc.closeAll();
