@@ -70,6 +70,7 @@ function bsServe() {
   gulp.watch('./src/**/*.html', compileTemplates);
   gulp.watch('./src/**/*.scss', dev.compileScss);
   gulp.watch('./src/**/*.js', dev.compileWebpack);
+  gulp.watch('./src/**/*.ts', dev.compileWebpack);
   gulp.watch('./src/**/*.json', dev.compileWebpack);
 }
 
