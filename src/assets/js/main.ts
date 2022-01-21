@@ -18,6 +18,14 @@ const fetchPosts = async () => {
     console.log(data);
     console.log(error);
 
+
+    
+    data.forEach(post => {
+        document.getElementById('posts').innerHTML += `
+            <li>${post.title} + ${post.content}</li>
+        `
+    });
+
 };
 
 fetchPosts();
@@ -28,6 +36,9 @@ const setPost = async (post: Post) => {
       .insert([
         post
       ])
+
+    document.getElementById('posts').innerHTML = ''
+    fetchPosts();
 
 }
 
