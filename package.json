@@ -27,6 +27,7 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.29.3",
     "bootstrap": "^5.0.2"
   }
 }
