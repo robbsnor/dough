@@ -1,54 +1,26 @@
-import { createClient } from '@supabase/supabase-js';
+import { Supabase } from './supabase';
+import { downloadFileFromBlob } from './util';
 
-const supabase = createClient('https://yatudmtuaqqtmlmktuik.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNjQyNzM5NzYwLCJleHAiOjE5NTgzMTU3NjB9.z8xzQAQiS4ixqbwrMqyD-iiMGl9iZPnaTVeN0vHbqys')
+const sb = new Supabase;
 
+// sb.getFile('images', 'summer.jpg', 'test/').then((file) => {    
+//     downloadFileFromBlob(file.data, file.fileName)
+// })
 
+sb.getAllFilesFromBucket('images').then((files) => {
+    console.log(files);
+    files[0].name
 
-
-interface Post {
-    title: string
-    content: string
-}
-
-const fetchPosts = async () => {
-    const { data, error } = await supabase
-        .from('posts')
-        .select()
-
-    console.log(data);
-    console.log(error);
-
-
-    
-    data.forEach(post => {
-        document.getElementById('posts').innerHTML += `
-            <li>${post.title} + ${post.content}</li>
-        `
-    });
-
-};
-
-fetchPosts();
-
-const setPost = async (post: Post) => {
-    const { data, error } = await supabase
-      .from('posts')
-      .insert([
-        post
-      ])
-
-    document.getElementById('posts').innerHTML = ''
-    fetchPosts();
-
-}
-
-document.getElementById('button').addEventListener('click', () => {
-    const title = document.getElementById('title') as HTMLInputElement
-    const content = document.getElementById('content') as HTMLInputElement
-    
-    setPost({title: title.value, content: content.value});
-
-    title.value = '';
-    content.value = '';
+    sb.getFile('images', files[0].name).then((image) => {
+        console.log(image);
+    })
 })
 
+const file = document.getElementById('file') as HTMLInputElement;
+const uploadButton = document.getElementById('upload') as HTMLButtonElement;
+
+uploadButton.addEventListener('click', () => {
+    console.log(file.files[0]);
+
+    sb.uploadFile('video', file.files)
+})

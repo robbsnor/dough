@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^1.29.3",
-    "bootstrap": "^5.0.2"
+    "bootstrap": "^5.0.2",
+    "ytdl-core": "^4.10.0"
   }
 }
