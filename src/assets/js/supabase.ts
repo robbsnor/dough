@@ -1,7 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
+const supabaseUrl = 'https://yatudmtuaqqtmlmktuik.supabase.co';
+
 export class Supabase {
-    public supabase = createClient('https://yatudmtuaqqtmlmktuik.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNjQyNzM5NzYwLCJleHAiOjE5NTgzMTU3NjB9.z8xzQAQiS4ixqbwrMqyD-iiMGl9iZPnaTVeN0vHbqys')
+    public supabase = createClient(supabaseUrl, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJvbGUiOiJhbm9uIiwiaWF0IjoxNjQyNzM5NzYwLCJleHAiOjE5NTgzMTU3NjB9.z8xzQAQiS4ixqbwrMqyD-iiMGl9iZPnaTVeN0vHbqys')
 
     public generateBucket = async (name: string) => {
         const { data, error } = await this.supabase.storage.createBucket(name);
@@ -18,8 +20,9 @@ export class Supabase {
         if (error) console.log(error);
 
         return {
-            fileName: fileName,
-            data: data
+            name: fileName,
+            path: `${supabaseUrl}/storage/v1/object/public/${bucket}/${fileName}`,
+            blob: data
         }
     }
 
@@ -43,7 +46,7 @@ export class Supabase {
     }
     
     public uploadFile = async (bucket: string, file: FileList, folder = '') => {
-        const name = file[0].name.replace(/\s+/g, '-');
+        const name = file[0].name;
         
         const { data, error } = await this.supabase.storage
             .from(bucket)

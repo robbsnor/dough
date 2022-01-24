@@ -3,18 +3,14 @@ import { downloadFileFromBlob } from './util';
 
 const sb = new Supabase;
 
-// sb.getFile('images', 'summer.jpg', 'test/').then((file) => {    
-//     downloadFileFromBlob(file.data, file.fileName)
-// })
-
-sb.getAllFilesFromBucket('images').then((files) => {
-    console.log(files);
-    files[0].name
-
-    sb.getFile('images', files[0].name).then((image) => {
-        console.log(image);
-    })
+sb.getFile('images', '1.jpg').then((file) => {    
+    // downloadFileFromBlob(file.data, file.fileName)
+    console.log(file);
+    
+    const imgEl = document.getElementById('image') as HTMLImageElement;
+    imgEl.src = file.path;
 })
+
 
 const file = document.getElementById('file') as HTMLInputElement;
 const uploadButton = document.getElementById('upload') as HTMLButtonElement;
@@ -22,5 +18,5 @@ const uploadButton = document.getElementById('upload') as HTMLButtonElement;
 uploadButton.addEventListener('click', () => {
     console.log(file.files[0]);
 
-    sb.uploadFile('video', file.files)
+    sb.uploadFile('images', file.files)
 })

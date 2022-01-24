@@ -1,4 +1,4 @@
-export const downloadFileFromBlob = (blob: Blob, name = 'file.txt') => {
+export const downloadFileFromBlob = (blob: Blob, name: string) => {
     // Convert your blob into a Blob URL (a special url that points to an object in the browser's memory)
     const blobUrl = URL.createObjectURL(blob);
 
