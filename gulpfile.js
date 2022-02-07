@@ -8,7 +8,7 @@ const browserSync = require('browser-sync').create('bsServer');
 const dev = require('./gulpfile.dev').functions;
 const prod = require('./gulpfile.prod').functions;
 
-const justMoveFileTypes = 'jpg,png,gif,svg,php,pdf,ico,mp3';
+const justMoveFileTypes = 'jpg,png,gif,svg,php,pdf,ico,mp3,json';
 
 const nodeFiles = [
   // {

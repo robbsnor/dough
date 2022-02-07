@@ -1,0 +1,39 @@
+.streams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.stream {
+    display: block;
+    text-decoration: none;
+    color: #ccc;
+    background-color: purple;
+    border-radius: 5px;
+    overflow: hidden;
+
+    &:hover {
+        color: #fff;
+    }
+
+    &__thumbnail {
+        width: 100%;
+        height: auto;
+    }
+
+    &__content {
+        padding: 1rem;
+    }
+
+    &__title {
+        font-size: 1rem;
+    }
+
+    &__duration {
+        opacity: .8;
+    }
+
+    &__date {
+        opacity: .8;
+    }
+}
