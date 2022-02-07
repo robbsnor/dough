@@ -18,8 +18,22 @@
     }
 
     &__thumbnail {
+        position: relative;
+    }
+
+    &__image {
         width: 100%;
         height: auto;
+    }
+
+    &__duration {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        line-height: 1;
+        background-color: #202020;
+        padding: 10px;
+        font-size: .8rem;
     }
 
     &__content {
@@ -28,10 +42,6 @@
 
     &__title {
         font-size: 1rem;
-    }
-
-    &__duration {
-        opacity: .8;
     }
 
     &__date {

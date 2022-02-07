@@ -17,10 +17,12 @@ const renderStreams = (streams: any) => {
             
         document.querySelectorAll('.streams')[0].innerHTML += `
         <a href="${stream.url}" target="_blank" class="stream">
-            <img src="${image}" class="stream__thumbnail">
+            <div class="stream__thumbnail">
+                <img src="${image}" class="stream__image">
+                <div class="stream__duration">${stream.duration}</div>
+            </div>
             <div class="stream__content">
                 <h2 class="stream__title">${stream.title}</h2>
-                <div class="stream__duration">${stream.duration}</div>
                 <div class="stream__date">${stream.published_at}</div>
             </div>
         </a>
