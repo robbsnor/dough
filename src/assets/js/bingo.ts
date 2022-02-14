@@ -26,9 +26,9 @@ export class Bingo {
     initListeners() {
         // handle if cards are done
         const objectives  = document.querySelectorAll('.bingo__objective');
-        objectives.forEach(objective => {
+        objectives.forEach(( objective, i ) => {
             objective.addEventListener('click', () => {                
-                this.toggleDone(objective);
+                this.toggleDone(i);
             })
         });
     }
@@ -39,20 +39,22 @@ export class Bingo {
 
         this.objectives.forEach(( objective ) => {
             this.bingoEl.innerHTML += `
-                <div class="bingo__objective${objective.isDone ? ' is-done' : ''}">${ objective.objective }</div>
+                <div class="bingo__objective${objective.isDone ? ' is-done' : ''}">${ objective.title }</div>
             `;
         });
     }
 
-    setDone(objective: Element) {
-        objective.classList.add('is-done');
+    setDone(i: number) {
+        document.querySelectorAll('.bingo__objective')[i].classList.add('is-done');
+        this.objectives[i].isDone = true
     }
 
-    unsetDone(objective: Element) {
-        objective.classList.remove('is-done');
+    unsetDone(i: number) {
+        document.querySelectorAll('.bingo__objective')[i].classList.remove('is-done');
+        this.objectives[i].isDone = false
     }
 
-    toggleDone(objective: Element) {
-        objective.classList.contains('is-done') ? this.unsetDone(objective) : this.setDone(objective);
+    toggleDone(i: number) {
+        this.objectives[i].isDone ? this.unsetDone(i) : this.setDone(i);
     }
 }
