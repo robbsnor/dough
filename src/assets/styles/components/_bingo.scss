@@ -1,0 +1,32 @@
+.bingo {
+    margin: 2rem;
+    display: grid;
+    border: 1px solid rgb(122, 122, 122);
+
+    &__objective {
+        display: grid;
+        place-items: center;
+        border: 1px solid rgb(122, 122, 122);
+        aspect-ratio: 1 / 1;
+        text-align: center;
+        padding: .5rem;
+        overflow: hidden;
+        user-select: none;
+        cursor: pointer;
+
+        &.is-done {
+            background-color: red;
+            border: none;
+        }
+    }
+
+    &--3x3 {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    &--5x5 {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+}
