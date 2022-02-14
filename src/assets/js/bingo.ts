@@ -2,6 +2,7 @@ import { Objective } from "./bingo.model";
 import { BoardSize } from "./bingo.model";
 
 export class Bingo {
+    private originalObjectives: Objective[];
     private objectives: Objective[];
     private bingoEl: HTMLDivElement;
     private boardSize: BoardSize;
@@ -11,29 +12,37 @@ export class Bingo {
         bingoEl: HTMLDivElement,
         boardSize: BoardSize
     ) {
+        this.originalObjectives = objectives;
         this.objectives = objectives;
         this.bingoEl = bingoEl;
         this.boardSize = boardSize;
-        
+
         this.init();
     }
 
     init() {
-        this.drawBoard();
-        this.initListeners();
+        this.loadFromLocalStorage();
     }
 
     initListeners() {
-        // handle if cards are done
+        // handle  cards click
         const objectives  = document.querySelectorAll('.bingo__objective');
         objectives.forEach(( objective, i ) => {
-            objective.addEventListener('click', () => {                
+            objective.addEventListener('click', () => {
                 this.toggleDone(i);
+                this.saveToLocalStorage();
+                console.log('clicked card');
             })
         });
+
+        // clear board
+        const clearBtn = document.querySelector('.bingo__clear');
+        clearBtn.addEventListener('click', () => {
+            this.deleteLocalStorage();
+        })
     }
 
-    drawBoard() {        
+    drawBoard() {
         this.bingoEl.classList.add('bingo', `bingo--${this.boardSize}`);
         this.bingoEl.innerHTML = '';
 
@@ -49,12 +58,38 @@ export class Bingo {
         this.objectives[i].isDone = true
     }
 
-    unsetDone(i: number) {
+    clearDone(i: number) {
         document.querySelectorAll('.bingo__objective')[i].classList.remove('is-done');
         this.objectives[i].isDone = false
     }
 
     toggleDone(i: number) {
-        this.objectives[i].isDone ? this.unsetDone(i) : this.setDone(i);
+        this.objectives[i].isDone ? this.clearDone(i) : this.setDone(i);
+    }
+
+    saveToLocalStorage() {
+        console.log(this.objectives);
+
+        localStorage.setItem('bingo_objectives', JSON.stringify(this.objectives));
+        console.log('done saving');
+    }
+
+    loadFromLocalStorage() {
+        const objectives = JSON.parse(localStorage.getItem('bingo_objectives'));
+        console.log(objectives);
+
+        if (objectives) this.objectives = objectives;
+
+        this.drawBoard();
+        this.initListeners();
+    }
+
+    deleteLocalStorage() {
+        localStorage.removeItem('bingo_objectives');
+
+        this.objectives = this.originalObjectives;
+
+        this.drawBoard();
+        this.initListeners();
     }
 }

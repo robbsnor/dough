@@ -30,7 +30,7 @@ const myBingoObjectives: Objective[] = [
 ]
 
 const emonggsBingo = new Bingo(
-    myBingoObjectives, 
+    myBingoObjectives,
     document.querySelector('.emongg'),
     '5x5'
 )
