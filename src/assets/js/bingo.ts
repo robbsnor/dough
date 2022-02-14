@@ -39,7 +39,7 @@ export class Bingo {
         const clearBtn = document.querySelector('.bingo__clear');
         clearBtn.addEventListener('click', () => {
             this.deleteLocalStorage();
-        })
+        }, { once: true })
     }
 
     drawBoard() {
