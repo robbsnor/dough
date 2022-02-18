@@ -7,3 +7,12 @@ body {
 img {
     max-width: 100%;
 }
+
+a:not([class]) {
+    color: plum;
+    transition: color .2s;
+
+    &:hover {
+        color: palevioletred;
+    }
+}
