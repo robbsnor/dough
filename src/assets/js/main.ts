@@ -1,7 +1,6 @@
 const loginBase = 'https://id.twitch.tv/oauth2/authorize';
 const loginClientId = 'bswjnitlemb553jejwba2uyjdk72qw';
-// const loginRedirect = `${window.location.href}/`;
-const loginRedirect = `http://localhost:3000`;
+const loginRedirect = `${window.location.origin}`;
 const loginResponseType = 'token';
 const loginScope = 'openid';
 
