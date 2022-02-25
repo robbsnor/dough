@@ -14,17 +14,46 @@ login.href = `${loginBase}?client_id=${loginClientId}&redirect_uri=${loginRedire
 
 
 // fetch sicko streams
-fetch(`https://api.twitch.tv/helix/videos?user_id=${lekkerspelenID}&first=100`, {
-  headers: {
-    'Authorization': `Bearer ${accessToken}`,
-    'Client-Id': `${loginClientId}`
-  }
+const getAllStreams = async() => {
+    let allStreams: any = [];
+    let nextPageParameter = '';
+    let nextPageCursor = '';
+
+    for (let i = 0; i < 2; i++) {
+
+        if (i !== 0) {
+            nextPageParameter = `&after=${nextPageCursor}`
+        }
+
+        let baseURL = `https://api.twitch.tv/helix/videos?user_id=${lekkerspelenID}&first=100`;
+
+        await fetch(`${baseURL}${nextPageParameter}`, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}`,
+                'Client-Id': `${loginClientId}`
+            }})
+            .then(res => res.json())
+            .then(res => {
+                nextPageCursor = res.pagination.cursor;
+
+                console.log(nextPageCursor);
+
+
+                allStreams.push(res.data)
+                return res;
+            });
+    }
+
+
+    return allStreams.flat(1);
+}
+
+getAllStreams().then((streams) => {
+    console.log(streams)
+    renderStreamers(streams);
 })
-.then(res => res.json())
-.then(res => {
-    console.log(res)
-    renderStreamers(res.data)
-})
+
+
 
 const renderStreamers = (streamData: any) => {
     streamData.forEach((stream: any) => {
