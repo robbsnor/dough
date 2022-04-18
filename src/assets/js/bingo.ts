@@ -1,5 +1,5 @@
-import { Objective } from "./bingo.model";
-import { BoardSize } from "./bingo.model";
+import { cloneDeep } from "lodash";
+import { Objective, BoardSize } from "./bingo.model";
 
 export class Bingo {
     private originalObjectives: Objective[];
@@ -12,7 +12,7 @@ export class Bingo {
         bingoEl: HTMLDivElement,
         boardSize: BoardSize
     ) {
-        this.originalObjectives = objectives;
+        this.originalObjectives = cloneDeep(objectives);
         this.objectives = objectives;
         this.bingoEl = bingoEl;
         this.boardSize = boardSize;
@@ -25,7 +25,7 @@ export class Bingo {
     }
 
     initListeners() {
-        // handle  cards click
+        // handle cards click
         const objectives  = document.querySelectorAll('.bingo__objective');
         objectives.forEach(( objective, i ) => {
             objective.addEventListener('click', () => {
@@ -56,6 +56,10 @@ export class Bingo {
     setDone(i: number) {
         document.querySelectorAll('.bingo__objective')[i].classList.add('is-done');
         this.objectives[i].isDone = true
+
+        console.log(this.objectives);
+        console.log(this.originalObjectives);
+
     }
 
     clearDone(i: number) {
@@ -68,15 +72,11 @@ export class Bingo {
     }
 
     saveToLocalStorage() {
-        console.log(this.objectives);
-
         localStorage.setItem('bingo_objectives', JSON.stringify(this.objectives));
-        console.log('done saving');
     }
 
     loadFromLocalStorage() {
         const objectives = JSON.parse(localStorage.getItem('bingo_objectives'));
-        console.log(objectives);
 
         if (objectives) this.objectives = objectives;
 
