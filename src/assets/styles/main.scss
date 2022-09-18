@@ -2,3 +2,10 @@
 @import 'vendors';
 @import 'base';
 @import 'components/components';
+
+.keyboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}

@@ -1,0 +1,69 @@
+.keyboard-display {
+    display: inline-block;
+
+    &__row {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 5px;
+
+        &--f-keys {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__key {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        border: 2px solid white;
+        border-radius: 6px;
+        transform: skew(-5deg);
+        transition: .25s ease-out;
+
+        &--escape,
+        &--f4,
+        &--f8 {
+            margin-right: 35px;
+        }
+
+        &--backspace {
+            width: 100px;
+        }
+
+        &--tab {
+            width: 75px;
+        }
+
+        &--backslash {
+            flex: 1;
+        }
+
+        &--capslock {
+            width: 90px;
+        }
+
+        &--enter {
+            flex: 1;
+        }
+
+        &--shiftleft {
+            width: 125px;
+        }
+
+        &--shiftright {
+            flex: 1;
+        }
+
+        &--space {
+            flex: 1;
+        }
+
+        &.active {
+            background-color: rgb(250, 199, 32);
+            color: black;
+            transition: 0s;
+        }
+    }
+}
