@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .keyboard-display {
     display: inline-block;
+    font-family: 'Bebas Neue', cursive;
 
     &__row {
         display: flex;
@@ -19,6 +22,7 @@
         height: 60px;
         border: 2px solid white;
         border-radius: 6px;
+        font-size: 25px;
         transform: skew(-5deg);
         transition: .25s ease-out;
 

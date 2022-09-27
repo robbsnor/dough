@@ -1,10 +1,18 @@
+
+interface KeyboardDisplayOptions {
+    onKeyDown?: Function;
+    onKeyUp?: Function;
+}
 export class KeyboardDisplay {
     private container: HTMLElement;
+    private options: KeyboardDisplayOptions;
 
     constructor(
-        container: HTMLElement
+        container: HTMLElement,
+        options?: KeyboardDisplayOptions
     ) {
         this.container = container;
+        this.options = options;
 
         this.init();
     }
@@ -15,22 +23,30 @@ export class KeyboardDisplay {
     }
 
     private handleEvents() {
-        document.addEventListener('keydown', (e) => {
-            const key = this.getKey(e);
+        document.addEventListener('keydown', (event) => {
+            const key = this.getKey(event);
             const keyEl = document.querySelector(`.keyboard-display__key--${ key.toLocaleLowerCase() }`)
 
             if(!keyEl) return;
 
             keyEl.classList.add('active');
+
+            if (this.options.onKeyDown) {
+                this.options.onKeyDown(event)
+            }
         });
 
-        document.addEventListener('keyup', (e) => {
-            const key = this.getKey(e);
+        document.addEventListener('keyup', (event) => {
+            const key = this.getKey(event);
             const keyEl = document.querySelector(`.keyboard-display__key--${ key.toLocaleLowerCase() }`)
 
             if(!keyEl) return;
 
             keyEl.classList.remove('active');
+
+            if (this.options.onKeyUp) {
+                this.options.onKeyUp(event)
+            }
         });
 
 
